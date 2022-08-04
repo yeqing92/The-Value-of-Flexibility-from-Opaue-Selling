@@ -1,11 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
-## asym in n-opq
-
 from matplotlib import pyplot as plt
 import pandas as pd
 import numpy as np
