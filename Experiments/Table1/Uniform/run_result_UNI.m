@@ -1,13 +1,4 @@
 std = 10;
-
-%load('new_q_2.mat')
-%load('new_q.mat')
-%load('new_p0_2.mat')
-%load('new_p0.mat')
-%load('new_ERK.mat')
-%load('new_ER2K.mat')
-%load('new_ER2.mat')
-%load('new_ER.mat')
 load('ER_K.mat')
 load('ER2_K.mat')
 load('ER2.mat')
@@ -19,9 +10,7 @@ new_ER2 = ER2;
 new_ER2K = ER2K;
 new_ERK = ERK;
 
-c=100;
-
-%c_index = (c-10)./2+1;
+c=100; % order up to level S = 100. Change this value to 150 or 200 to generate results in table 1.
 c_index = c./10;
 
 h = 1;
@@ -31,10 +20,6 @@ pur_cost = 50;
 N = 5;
 a = ave - sqrt(3).*std;
 b = ave + sqrt(3).*std;
-%delta = 1:0.1:9;
-%m = length(delta);
-%p =103:0.1:105;
-%n = length(p);
 delta = 0:0.1:8;
 m = length(delta);
 price = 102:0.1:105;
@@ -43,8 +28,6 @@ p0 = zeros(n,m);
 q = zeros(n,m);
 p0_2 = zeros(n,m);
 q_2 = zeros(n,m);
-
-
 
 fprintf('Progress:\n');
 fprintf(['\n' repmat('\b|\n',1,n) '\n\n']);
@@ -55,13 +38,8 @@ for i = 1:n
     fprintf('\b|\n');
 end
 
-
-
-
 q_value = 0:0.01:0.5;
-
-k = [1000,5000,10000]; %%%%%%%%%%%%%%%%%
-
+k = [1000,5000,10000];
 nn = length(k);
 p_star = zeros(1,nn);
 c_star = zeros(1,nn);
@@ -81,11 +59,8 @@ revenue_2 = zeros(1,nn);
 lambda_star_N = zeros(1,nn);
 lambda_star_2 = zeros(1,nn);
 lambda_star_trad = zeros(1,nn);
-
-
 % for traditional strategy
 p0_trad = ((price-a).^N./(b-a).^N)';% delta = 0
-%p0_trad = 1./(1 + exp())
 ER_trad = new_ER(1,c_index); % q = 0
 ER2_trad = new_ER2(1,c_index); % q = 0
 
@@ -95,12 +70,9 @@ holding_trad = mtimes(ones(length(lambda_trad),1) ,hold_trad);
 
 for i = 1:nn
 K = k(i);
-%K = (i-1)*100+500;
 % find p*
 % find c* for every p
 cost_trad = mtimes(lambda_trad,K./ER_trad)+holding_trad; % matrix
-%[cost_trad_star,I] = min(cost_trad,[],2);
-%c_trad = (I-1).*2+10;
 c_trad = c;
 
 Pi_trad = (price-pur_cost)'.*lambda_trad-cost_trad;
@@ -170,64 +142,6 @@ Profit_2 = Pi_star_2./lambda_star_2;
 
 profit_increase_N =  100.*Profit_N./Profit_trad - 100;
 profit_increase_2 =  100.*Profit_2./Profit_trad - 100;
-
-figure(1)
-subplot(2,2,1)
-plot(k,100.*Pi_star_N./Pi_star-100,'r-','linewidth',2)
-hold on
-plot(k,100.*Pi_star_2./Pi_star-100,'b-','linewidth',2)
-ylabel('% Change in Profit')
-xlabel('Ordeing Cost')
-legend('N-opaque', '2-opaque')
-
-
-subplot(2,2,2)
-plot(k,q_star_N.*100,'r-','linewidth',2)
-hold on
-plot(k,q_star_2.*100,'b-','linewidth',2)
-ylabel('% Opaque Customers')
-xlabel('Ordeing Cost')
-
-subplot(2,2,3)
-hold on
-yyaxis left
-plot(k,100.*total_cost_star_N./total_cost_star-100,'r-','linewidth',2)
-ylabel('% Change in Cost')
-xlabel('Ordeing Cost')
-plot(k,100.*total_cost_star_2./total_cost_star-100,'b-','linewidth',2)
-yyaxis right
-plot(k,100.*revenue_N./revenue-100,'r--','linewidth',2)
-
-plot(k,100.*revenue_2./revenue-100,'b--','linewidth',2)
-ylabel('% Change in Revenue')
-
-
-hold off
-% %subplot(4,2,6)
-% 
-% %plot(k,c_star,'r-','linewidth',2)
-% %ylabel('c^*')
-% %xlabel('K')
-% 
-% %subplot(4,2,8)
-% %plot(k,p_star,'r-','linewidth',2)
-% %ylabel('p^*')
-% %xlabel('K')
-% 
-subplot(2,2,4)
-plot(k,100.*delta_star_N./p_star,'r-','linewidth',2)
-hold on
-plot(k,100.*delta_star_2./p_star,'b-','linewidth',2)
-ylabel('% of Discount')
-xlabel('Ordeing Cost')
-
-
-%subplot(4,2,5)
-%plot(k,100.*revenue_N./revenue-100,'r-','linewidth',2)
-%hold on
-%plot(k,100.*revenue_2./revenue-100,'b-','linewidth',2)
-%ylabel('% Change in Revenue')
-%xlabel('K')
 
 Result_table = zeros(nn,12);
 Result_table(:,1) = (100.*delta_star_N./p_star)';
