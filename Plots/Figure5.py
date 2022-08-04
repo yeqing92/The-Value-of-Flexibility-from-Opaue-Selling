@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 from matplotlib import pyplot as plt
 import pandas as pd
 import numpy as np
@@ -31,13 +28,13 @@ def simulate_ER(n,prob, opq_prob, opq_Set,S, iteration):
             if min(inv)==0:
                 R_list.append(n*S-sum(inv))
                 flag = 0   
-    return(np.average(R_list), np.average([i**2 for i in R_list]))
+    return (np.average(R_list), np.average([i**2 for i in R_list]))
 
 def cost(n,h,K,lamb, S, ER,ER2):
     holding = (2*n*S+1)*ER-ER2
     holding = float(h*holding)/(2*lamb*ER)
     ordering = float(K)/ER
-    return(holding+ordering, holding, ordering)
+    return (holding+ordering, holding, ordering)
 n=7
 K=1000
 h=1
