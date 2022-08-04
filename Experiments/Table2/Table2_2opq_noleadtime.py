@@ -1,14 +1,30 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 from itertools import *
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
-import json      
+import json 
+
+
+def createTwoChoice(N, iteration):
+    twoOPQ = []
+    txtname1 = "may31choice" + "_"+str(N)+".txt"
+    with open(txtname1, 'r') as in_file:
+        choice1 = json.load(in_file)
+    generate_sample = np.random.randint(0,N-1,iteration)
+    for i in range(iteration):
+        choice = choice1[i]
+        sample = generate_sample[i]
+        if (sample> choice):
+            choice2 = sample+1
+        elif (sample == choice):
+            choice2 = sample+1
+        else:
+            choice2 = sample
+        twoOPQ.append((int(choice), int(choice2)))
+    txtname2 = "june7_2choice" + "_"+str(N)+".txt"
+    with open(txtname2, 'w') as out_file:
+        json.dump(twoOPQ, out_file)
+        
 
 # Given s and S, compute the cost
 def lostCost2OPQ(s, S, N, K, h,L, q, lamb ,l, iteration):
