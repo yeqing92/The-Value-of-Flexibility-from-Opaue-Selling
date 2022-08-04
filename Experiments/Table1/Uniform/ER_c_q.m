@@ -4,6 +4,7 @@ r = 50;
 k=2;
 N = 5;   
 c=500; % compute ER ER2 for all c = 10: 500
+% c is the order up to level S in the paper
 ER = zeros(r+1,col);
 ER2 = zeros(r+1,col);
 ERK = zeros(r+1,col);
