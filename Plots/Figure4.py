@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 from matplotlib import pyplot as plt
 import pandas as pd
 import numpy as np
@@ -26,28 +20,28 @@ def simulate_ER(n,prob, opq_prob, opq_Set,S, iteration):
     weight = prob+opq_prob
     for t in range(iteration):
         inv = [S for i in range(n)]
-        flag = 1
-        while flag ==1:
-            choice =  random.choices(population, weights=weight, k=1)[0]
-            if choice<n:
+        flag = 1 # flag = 0: replenish back to S
+        while flag == 1:
+            choice =  random.choices(population, weights=weight, k=1)[0] 
+            if choice < n: # choose a traditional product 
                 inv[choice] = inv[choice]-1
-            else:
+            else: # choose an opaque option
                 choice = opq_Set[choice-n]
                 index_max = np.argmax([inv[index] for index in choice])
                 inv[choice[index_max]] = inv[choice[index_max]] -1
-            if min(inv)==0:
+            if min(inv)==0: # check whether an replenishment is triggered
                 R_list.append(n*S-sum(inv))
                 flag = 0   
-    return(np.average(R_list), np.average([i**2 for i in R_list]))
+    return (np.average(R_list), np.average([i**2 for i in R_list]))
 
 
 def cost(n,h,K,lamb, S, ER,ER2):
     holding = (2*n*S+1)*ER-ER2
     holding = float(h*holding)/(2*lamb*ER)
     ordering = float(K)/ER
-    return(holding+ordering, holding, ordering)
+    return (holding+ordering, holding, ordering)
 
-## simulation set up
+## start the simulation
 n=7
 K=1000
 h=1
@@ -145,5 +139,3 @@ plt.xlim(1,7.1)
 plt.legend(y,['$q=0.1$','$q=0.2$','$q=0.5$', '$q=1.0$'],loc='best', fontsize=14,shadow=True, fancybox=True)
 plt.show()
 fig.savefig('fig4b.pdf',bbox_inches='tight') 
-
-
