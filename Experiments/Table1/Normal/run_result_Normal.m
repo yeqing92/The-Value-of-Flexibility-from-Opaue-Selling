@@ -142,54 +142,6 @@ Profit_2 = Pi_star_2./lambda_star_2;
 profit_increase_N =  100.*Profit_N./Profit_trad - 100;
 profit_increase_2 =  100.*Profit_2./Profit_trad - 100;
 
-figure(1)
-subplot(2,2,1)
-plot(k,100.*Pi_star_N./Pi_star-100,'r-','linewidth',2)
-hold on
-plot(k,100.*Pi_star_2./Pi_star-100,'b-','linewidth',2)
-ylabel('% Change in Profit')
-xlabel('Ordeing Cost')
-legend('N-opaque', '2-opaque')
-
-
-subplot(2,2,2)
-plot(k,q_star_N.*100,'r-','linewidth',2)
-hold on
-plot(k,q_star_2.*100,'b-','linewidth',2)
-ylabel('% Opaque Customers')
-xlabel('Ordeing Cost')
-
-subplot(2,2,3)
-hold on
-yyaxis left
-plot(k,100.*total_cost_star_N./total_cost_star-100,'r-','linewidth',2)
-ylabel('% Change in Cost')
-xlabel('Ordeing Cost')
-plot(k,100.*total_cost_star_2./total_cost_star-100,'b-','linewidth',2)
-yyaxis right
-plot(k,100.*revenue_N./revenue-100,'r--','linewidth',2)
-
-plot(k,100.*revenue_2./revenue-100,'b--','linewidth',2)
-ylabel('% Change in Revenue')
-
-
-hold off
-
-subplot(2,2,4)
-plot(k,100.*delta_star_N./p_star,'r-','linewidth',2)
-hold on
-plot(k,100.*delta_star_2./p_star,'b-','linewidth',2)
-ylabel('% of Discount')
-xlabel('Ordeing Cost')
-
-
-%subplot(4,2,5)
-%plot(k,100.*revenue_N./revenue-100,'r-','linewidth',2)
-%hold on
-%plot(k,100.*revenue_2./revenue-100,'b-','linewidth',2)
-%ylabel('% Change in Revenue')
-%xlabel('K')
-
 Result_table = zeros(nn,12);
 Result_table(:,1) = (100.*delta_star_N./p_star)';
 Result_table(:,2) = (100.*delta_star_2./p_star)';
@@ -204,4 +156,3 @@ Result_table(:,10) = (100.*revenue_2./revenue-100)';
 Result_table(:,11) = (100.*Pi_star_N./Pi_star-100)';
 Result_table(:,12) = (100.*Pi_star_2./Pi_star-100)';
 Result_table
-p_star
