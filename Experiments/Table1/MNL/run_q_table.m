@@ -36,7 +36,7 @@ fprintf(['\n' repmat('\b|\n',1,n) '\n\n']);
 
 step = 100000;
 valuation = random('logistic', ave,beta,[N,step]);
-k = N;
+k = N; % generate price and q table for n opaque product
 for i = 1:n
     p = price(i);
     p_0 = zeros(1,length(delta));
@@ -60,7 +60,7 @@ for i = 1:n
     fprintf('\b|\n');
 end
 
-k = 2;
+k = 2; % generate price and q table for 2 opaque product
 for i = 1:n
     p = price(i);
     p_0 = zeros(1,length(delta));
