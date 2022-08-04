@@ -1,9 +1,11 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
+"""
+For each pair of parameter l (lost sales cost) and L (lead time), we conduct a grid search on the optimal value of s and S
+In function run_lostsale_sub, we compute the inventory cost for traditional selling strategy, n opaque selling with q = 0.1, and n opaque selling with q = 0.2
+The result is
+(1) optimal s,S policy for traditional selling strategy and the corresponding cost,
+(2) optimal s,S policy for n opaque selling strategy with q = 0.1 and the corresponding cost,
+(3) optimal s,S policy for n opaque selling strategy with q = 0.2 and the corresponding cost
+"""
 from itertools import *
 import numpy as np
 import matplotlib.pyplot as plt
